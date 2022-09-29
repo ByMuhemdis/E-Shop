@@ -1,0 +1,42 @@
+﻿@model List<EntityLayer.Entites.Product>
+@{
+    ViewBag.Title = "CriticalStock";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+<table class="table table-bordered">
+
+    <tr>
+        <th>Ürün bilgisi </th>
+        <th>stok sayısı </th>
+
+
+    </tr>
+
+    @foreach (var item in Model)
+
+    {
+
+        if (item.Stock < 50)
+        {
+            <tr style="background-color:red">
+                <th>@item.Name </th>
+                <th>@item.Stock</th>
+
+
+            </tr>
+        }
+        if (item.Stock == 50)
+        {
+            <tr style="background-color:yellow">
+                <th>@item.Name </th>
+                <th>@item.Stock</th>
+
+
+            </tr>
+        }
+
+    }
+
+</table>

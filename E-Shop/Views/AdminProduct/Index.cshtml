@@ -1,0 +1,72 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<EntityLayer.Entites.Product>
+@{
+    ViewBag.Title = "Index";
+}
+<a href="/AdminProduct/Create" class="btn btn-primary">Ekle</a>
+<br />
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>Ad</th>
+        <th>Açıklama</th>
+        <th>Fiat</th>
+        <th>Stok</th>
+        <th>Popüler</th>
+        <th>Onay</th>
+        <th>Resim</th>
+        <th>Kategori</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+
+
+
+    </tr>
+
+    @foreach (var urn in Model)
+    {
+        <tr>
+
+            <td>@urn.Name</td>
+            <td>@urn.Description</td>
+            <td>@urn.Price</td>
+            <td>@urn.Stock</td>
+
+            @*onay kısmı ve populer kısmı karar içerdiginden if kosuluna baglıyoruz*@
+            <td>
+                @if (urn.Popular == true)
+                {
+                    <label class="btn btn-success">evet</label>
+                }
+                else
+                {
+                    <label class="btn btn-danger">hayır</label>
+                }
+
+            </td>
+            <td>
+
+                @if (urn.IsApproved == true)
+                {
+                    <label class="btn btn-success">evet</label>
+                }
+                else
+                {
+                    <label class="btn btn-danger">hayır</label>
+                }
+
+            </td>
+            <td><img src="~/Content/Image/@urn.Image" width="80" height="80" /></td>
+            <td>@urn.Category.Name</td>
+            <td>@Html.ActionLink("Sil", "Delete", new { urn.Id }, new { @class = "btn btn-danger", onclick = "return confirm ('Silmek istediginizden eminmisiniz')" })</td>
+            <th><a class="btn btn-info" href="/AdminProduct/update/@urn.Id">Güncelle</a></th>
+        </tr>
+
+        }
+
+    </table>
+
+@*----sayfalama kısmı---*@
+
+@Html.PagedListPager(Model, sayfa=>Url.Action("Index" , new {sayfa}),PagedListRenderOptions.Classic)

@@ -1,0 +1,86 @@
+﻿@model EntityLayer.Entites.Product
+@{
+    ViewBag.Title = "Update";
+}
+
+
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container">
+    <div class="row" @*satr actık*@>
+        <div class="col-md-6">
+            @*sütün actık*@
+            @*resmi alabilmek için formun içine şunu ekliyoruz --enctype="multipart/form-data--*@
+            <form method="post" enctype="multipart/form-data">
+                @*AdminProductController de ki koşullarımızı aktif attik yani demek istedigimiz booş gelilemesin kuşulunu aktif et*@
+                @Html.AntiForgeryToken()
+              
+                <div class="form-group">
+                    <label>Ürün ismi</label>
+                    <input type="text" class="form-control" name="Name" value="@Model.Name" />
+                   
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Açıklama</label>
+                    <input type="text" class="form-control" name="Description" value="@Model.Description" />
+                  
+                <br />
+                <div class="form-group">
+                    <label>Fiat</label>
+                    <input type="text" class="form-control" name="Price" value="@Model.Price" />
+                  
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Stok</label>
+                    <input type="text" class="form-control" name="Stock" value="@Model.Stock" />
+                  
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Popüler</label>
+                    @Html.EditorFor(x => x.Popular)
+                  
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Onay</label>
+                    @Html.EditorFor(x => x.IsApproved)
+                  
+                </div>
+                <br />
+                @*güncelleme sırasında önceki remi görmek için bu aşagıdaki divi oluşturduk*@ 
+                <div class="form-group">
+                    <label>Önceki Resim</label>
+                   <img src="~/Content/Image/@Model.Image" width="70" height="70" " />
+                 
+                </div>
+                <div class="form-group">
+                    <label>Resim</label>
+                    @Html.LabelFor(x=>x.Image,"Resim", htmlAttributes: new {@class="control-label-col-md-2"})
+                    <input type="file" class="form-control" name="File" />
+                  
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>Kategori</label>
+                    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.kgtr, new { @class = "form-control" })
+                  
+                </div>
+
+                <br />
+                <br />
+                <button class="btn btn-primary" type="submit">Ekle</button>
+                <a href="/AdminProduct/Index" class="btn btn-primary">Ürün listele</a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+

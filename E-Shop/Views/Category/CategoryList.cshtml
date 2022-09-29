@@ -1,0 +1,30 @@
+﻿@model List<EntityLayer.Entites.Category>
+@*sag tarafkai kategoorıiler kısmı categorykpntrollerdeki kodda vemcuk odadan buara asagıdaki kodla cektik*@
+
+
+
+<div class="col-sm-3" style="margin-top:30px">
+
+    <div class="left-sidebar">
+        <div class="brands_products">
+            <h2>KATEGORİLER</h2>
+            <div class="brands-name">
+
+                @foreach (var ktgrgetir in Model)
+                {
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="/Category/Details/@ktgrgetir.Id"><spam class="pull-right">(@ktgrgetir.Products.Count)</spam>@ktgrgetir.Name</a></li>
+
+                    </ul>
+
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+

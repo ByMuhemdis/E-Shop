@@ -1,0 +1,94 @@
+﻿@model List<EntityLayer.Entites.Category>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<a class="btn btn-primary" href="/AdminCatagory/Create">kategori ekle</a>
+
+<table class="table table-bordered" id="table">
+
+    <thead>
+        <tr>
+
+            <th>Ad </th>
+            <th>Açıkmala</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+
+        @if (Model != null)
+        {
+            foreach (var kgtr in Model)
+            {
+                <tr>
+
+                    <td>@kgtr.Name</td>
+                    <td>@kgtr.Description</td>
+                    @*<th><a class="btn btn-danger" href="/AdminCategory/Delete/@sil.Id">Sil</a></th>*@
+                    @*ikinci yolu*@
+
+                    @* bunu bu sekilde yorum satırı yapmamızın nedeni silme kısmını AJAX ile aşagıda yapacagız bu sayfa yebnilenmeden silme işlemi ve güncelleme işlemi yapar *@
+                    @*<td>@Html.ActionLink("Sil", "Delete", new { kgtr.Id }, new { @class = "btn btn-danger", onclick = "return confirm ('Silmek istediginizden eminmisiniz')" })</td>*@
+                    <td><a class="btnSil btn btn-danger " data-id="@kgtr.Id">Sil</a></td>
+                    <th><a class="btn btn-info" href="/AdminCatagory/update/@kgtr.Id">Güncelle</a></th>
+
+                </tr>
+            }
+        }
+
+    </tbody>
+
+</table>
+
+@* bunu yapabilmek için bootstrap linkini vermeliyiz *@
+
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+
+        $("#table").on("click", ".btnSil", function () {
+
+            var btn = $(this);
+            bootbox.confirm("silmek istediginize eminmisiniz", function (result) {
+
+                if (result) {
+
+                    var id = btn.data("id");
+                    $.ajax({
+                        type:"GET",
+                        url:"/AdminCatagory/Delete/" + id,
+                        success: function () {
+                            btn.parent().parent().remove();
+                        }
+
+                    });
+
+
+                }
+                else {
+
+                    bootbox.confirm("Hata oluştu");
+                }
+            })
+
+
+
+        });
+    });
+
+
+
+
+
+</script>

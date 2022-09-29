@@ -1,0 +1,75 @@
+﻿@model List<EntityLayer.Entites.Cart>
+@{
+    ViewBag.Title = "BuyAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+ <div class="container">
+
+     <h2>merhaba  @Session["Ad"]  @Session["Soyad"] satın alma sayfasına hos geldiniz </h2>
+
+ </div>
+
+</div>
+<div class="container">
+    @using (Html.BeginForm("BuyAll2","Sales", FormMethod.Post))
+    {
+
+        //burad urunun satıs yapıldıktan sonra adet sayısını dusurmöemiz lazım buu sql e gidip orada Trigger fonksiyonunu sales tablosunun uzerinde calıştırıp
+
+        //satıslar tablosundan veri ekledigimiz zaman otomatık olarak urun tablosundan o urune ait adeti dusurmeye yaray
+        //yani Trigger tablolar arasında bir tabloda işlem yapıldıgında diger tabloyuda etkilemesine yarar
+
+        foreach (var item in Model)
+        {
+            <div class="form-group">
+                <h2>Id:@Html.HiddenFor(x => item.ID)</h2>
+
+
+            </div>
+            <div class="form-group">
+                <h2>Ürün adı:@Html.DisplayFor(x => item.Product.Name)</h2>
+
+            </div>
+            <div class="form-group">
+                <h2>Adet:@Html.DisplayFor(x => item.Quantity)</h2>
+
+
+            </div>
+            <div class="form-group">
+                <h2>Fiat:@Html.DisplayFor(x => item.Price)</h2>
+
+
+            </div>
+            <div class="form-group">
+                <h2></h2>
+                <img src="~/Content/Image/@item.Product.Image" width="50" height="50" />
+
+            </div>
+        }
+
+        <p style="color:red; text-align:center ">@ViewBag.Tutar</p>
+        
+        <div class="container">
+
+            <div class="form-control" style="float:left">
+
+                <button class="btn btn-success">Onay</button>
+
+            </div>
+            <div style="float:right">
+                <a href="/cart/index" class="btn btn-danger">İptal</a>
+            </div>
+
+        </div>
+
+
+
+
+
+    }
+</div>
+
+
